@@ -605,6 +605,26 @@
                 return '';
             });
 
+        },
+
+        /**
+         * Whenever you modify the options' selected state programmatically
+         * call this API method to resync the tags box and dropdown menu.
+         */
+        remap: function (){
+            var $this = this;
+            //Remember what the selection is now
+            var $selectedOptionsCache =  $("option:selected", $this.select);
+            //Remove everything
+            $this.clear();
+            //And re-tag the options that were selected at func-call time.
+            //This mechanism ensures that the order of the selected values is that of the dom option elements.
+            $selectedOptionsCache.each(function () {
+                var $opt = $(this);
+                $this.tokenAdd($opt.val(), $opt.text());
+            });
+            $this.resetSearchInput();
+            $this.dropdownReset();
         }
 
     });
