@@ -512,13 +512,17 @@
                 });
 
             if($('option[value="' + value + '"]', this.select).length){
-                $('option[value="' + value + '"]', this.select).attr('selected', 'selected');
+                $('option[value="' + value + '"]', this.select).attr('selected', 'selected')
+                    // reflect selection change to native DOM structure
+                    .get(0).selected = true;
             } else if(this.options.newElements || (!this.options.newElements && $('li[data-value="' + value + '"]', this.dropdown).length > 0)) {
                 var option = $('<option />')
                     .attr('selected', 'selected')
                     .attr('value', value)
                     .attr('data-type', 'custom')
-                    .html(text);
+                    .html(text)
+                    // reflect selection change to native DOM structure
+                    .get(0).selected = true;
 
                 this.select.append(option);
             } else {
@@ -555,7 +559,9 @@
             if(option.attr('data-type') == 'custom'){
                 option.remove();
             } else {
-                option.removeAttr('selected');
+                option.removeAttr('selected')
+                    // reflect selection change to native DOM structure
+                    .get(0).selected = false;
             }
 
             $('li.Token[data-value="' + value + '"]', this.tokensContainer).remove();
@@ -626,6 +632,7 @@
             $this.resetSearchInput();
             $this.dropdownReset();
         }
+
 
     });
 
