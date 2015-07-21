@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tokenize tester</title>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+  <link rel="stylesheet" href="../jquery.tokenize.css" />
+  <script type="text/javascript" src="../jquery.tokenize.js"></script>
+</head>
+<body>
+
+<from>
+  <select id="products">
+    <option value="12">Banana</option>
+    <option value="52">Orange</option>
+    <option value="11">Pear</option>
+    <option value="117">Melon</option>
+  </select>
+</from>
+
+<div style="padding-bottom: 1em;">
+  <button id="removeOrange">unselect Orange by DOM selected=false</button>
+</div>
+<div style="padding-bottom: 1em;">
+  <button id="removeOrangeAttr">unselect Orange by "selected" prop</button>
+</div>
+<div style="padding-bottom: 1em;">
+  <button id="addOrange">select Orange by DOM selected=true</button>
+</div>
+<div style="padding-bottom: 1em;">
+  <button id="addOrangeAttr">select Orange by "selected" prop</button>
+</div>
+
+
+<script type="text/javascript">
+  $(function () {
+    $("#products").tokenize({
+      displayDropdownOnFocus: true
+    });
+
+    $("#removeOrange").click(function (){
+      $("#products option[value=52]").get(0).selected = false;
+      $("#products").data("tokenize").remap();
+    });
+
+    $("#addOrange").click(function (){
+      $("#products option[value=52]").get(0).selected = true;
+      $("#products").data("tokenize").remap();
+    });
+
+    $("#removeOrangeAttr").click(function (){
+      $("#products option[value=52]").prop("selected", false);
+      $("#products").data("tokenize").remap();
+    });
+    $("#addOrangeAttr").click(function (){
+      $("#products option[value=52]").prop("selected", true);
+      $("#products").data("tokenize").remap();
+    });
+  });
+</script>
+
+</body>
+</html>
