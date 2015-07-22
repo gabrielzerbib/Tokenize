@@ -481,7 +481,7 @@
 
         },
 
-        tokenAdd: function(value, text, first){
+        tokenAdd: function(value, text, skipCallbacks){
 
             value = this.escape(value);
 
@@ -493,8 +493,8 @@
                 text = value;
             }
 
-            if(first == undefined){
-                first = false;
+            if(skipCallbacks == undefined){
+                skipCallbacks = false;
             }
 
             if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
@@ -541,7 +541,7 @@
                 .prepend(close_btn)
                 .insertBefore(this.searchToken);
 
-            if(!first){
+            if(!skipCallbacks){
                 this.options.onAddToken(value, text, this);
             }
 
@@ -627,7 +627,7 @@
             //This mechanism ensures that the order of the selected values is that of the dom option elements.
             $selectedOptionsCache.each(function () {
                 var $opt = $(this);
-                $this.tokenAdd($opt.val(), $opt.text());
+                $this.tokenAdd($opt.val(), $opt.text(), true/*skip callbacks*/);
             });
             $this.resetSearchInput();
             $this.dropdownReset();
